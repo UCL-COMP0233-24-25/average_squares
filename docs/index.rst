@@ -6,9 +6,8 @@
 Average Squares documentation
 =============================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+This module contains two functions. The `average_squares` function returns the weighted average of the squares of an array of numbers, with weightings being optionally defined (defaulting to equal weightings).
+The other function, `convert_numbers`, converts an array of strings into floats, ignoring any whitespace.
 
 
 .. toctree::
