@@ -11,6 +11,8 @@ The other function, `convert_numbers`, converts an array of strings into floats,
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
+   
+   content/average-squares-docs
 
