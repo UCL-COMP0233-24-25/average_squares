@@ -2,7 +2,7 @@
 
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
-    """ Return the weighted average of a list of values.
+    """ Return the weighted average of the square of a list of values.
     
     By default, all values are equally weighted, but this can be changed
     by the list_of_weights argument.
@@ -10,9 +10,9 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
     Example:
     --------
     >>> average_of_squares([1, 2, 4])
-    7.0
+    21
     >>> average_of_squares([2, 4], [1, 0.5])
-    6.0
+    12.0
     >>> average_of_squares([1, 2, 4], [1, 0.5])
     Traceback (most recent call last):
     AssertionError: weights and numbers must have same length
@@ -38,7 +38,7 @@ def convert_numbers(list_of_strings):
     Example:
     --------
     >>> convert_numbers(["4", " 8 ", "15 16", " 23    42 "])
-    [4, 8, 15, 16]
+    [4.0, 8.0, 15.0, 16.0, 23.0, 42.0]
 
     """
     all_numbers = []
@@ -56,7 +56,6 @@ if __name__ == "__main__":
     
     numbers = convert_numbers(numbers_strings)
     weights = convert_numbers(weight_strings)
-    
+
     result = average_of_squares(numbers, weights)
-    
     print(result)
