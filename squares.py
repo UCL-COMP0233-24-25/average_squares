@@ -2,7 +2,7 @@
 
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
-    """ Return the weighted average of a list of values.
+    """ Return the weighted average of the squares of a list of values.
     
     By default, all values are equally weighted, but this can be changed
     by the list_of_weights argument.
@@ -29,7 +29,7 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
         for number, weight
         in zip(list_of_numbers, effective_weights)
     ]
-    return sum(squares)
+    return sum(squares) / len(squares)
 
 
 def convert_numbers(list_of_strings):
