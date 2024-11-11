@@ -10,7 +10,7 @@ This is the main documentation for Squares
 .. toctree::
    :maxdepth: 2
 
-   content
+   content/average-squares-docs
    :caption: Contents:
 
 
