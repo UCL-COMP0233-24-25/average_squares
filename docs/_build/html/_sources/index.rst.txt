@@ -9,9 +9,9 @@ This is the main documentation for Squares
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents: 
 
-
+   content
+   :caption: Contents:
 
 
 Indices and tables
