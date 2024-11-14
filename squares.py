@@ -21,9 +21,9 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
     if list_of_weights is not None:
         assert len(list_of_weights) == len(list_of_numbers), \
             "weights and numbers must have same length"
-        effective_weights = list_of_weights
+        effective_weights = [x/len(list_of_numbers) for x in list_of_weights]
     else:
-        effective_weights = [1] * len(list_of_numbers)
+        effective_weights = [1/len(list_of_numbers)] * len(list_of_numbers)
     squares = [
         weight * number * number
         for number, weight
@@ -38,16 +38,16 @@ def convert_numbers(list_of_strings):
     Example:
     --------
     >>> convert_numbers(["4", " 8 ", "15 16", " 23    42 "])
-    [4, 8, 15, 16]
+    [4, 8, 15, 16, 23, 42]
 
     """
     all_numbers = []
     for s in list_of_strings:
         # Take each string in the list, split it into substrings separated by
         # whitespace, and collect them into a single list...
-        all_numbers.extend([token.strip() for token in s.split()])
+        all_numbers.extend(s.split())
     # ...then convert each substring into a number
-    return [float(number_string) for number_string in all_numbers]
+    return [int(number_string) for number_string in all_numbers]
 
 
 if __name__ == "__main__":
