@@ -53,24 +53,27 @@ def convert_numbers(list_of_strings):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compute the weighted average of squares.")
     parser.add_argument(
-        "numbers", 
-        metavar="N", 
-        type=str, 
-        nargs="+", 
+        "file1", 
+        type=str,
         help="A list of numbers (separated by spaces or as separate arguments)"
     )
     parser.add_argument(
         "--weights", 
-        metavar="W", 
         type=str, 
-        nargs="+", 
         help="A list of weights (optional, separated by spaces or as separate arguments)"
     )
     
     args = parser.parse_args()
-    numbers = convert_numbers(args.numbers)
-    weights = convert_numbers(args.weights) if args.weights else None
+    with open(args.file1, 'r') as file1:
+        line = file1.readline().strip()
+        numbers = [float(number) for number in line.split(',')]
     
+    args2 = parser.parse_args()
+    
+    with open(args.weights, 'r') as file2:
+        line = file2.readline().strip()
+        weights = [float(weight) for weight in line.split(',')]
+        
     result = average_of_squares(numbers, weights)
     
     print(result)
