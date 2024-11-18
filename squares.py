@@ -67,7 +67,10 @@ def process():
 
     args = parser.parse_args()
     numbers = convert_numbers(args.numbers)
-    weights = convert_numbers(args.weights)
+    if not args.weights:
+        weights = None
+    else:
+        weights = convert_numbers(args.weights)
 
     result = average_of_squares(numbers, weights)
 
