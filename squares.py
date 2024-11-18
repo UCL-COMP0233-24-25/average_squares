@@ -1,4 +1,5 @@
 """Computation of weighted average of squares."""
+import argparse
 
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
@@ -51,12 +52,33 @@ def convert_numbers(list_of_strings):
 
 
 if __name__ == "__main__":
-    numbers_strings = ["1","2","4"]
-    weight_strings = ["1","1","1"]        
+    # Create the parser
+    parser = argparse.ArgumentParser(description="Process a list of numbers.")
+
+    # Add arguments to the parser
+    parser.add_argument('--numbers', nargs='+', type=float, default=[1, 2, 3, 4, 5],
+                        help="A list of numbers (default: [1, 2, 3, 4, 5])")
+    parser.add_argument('--weights', nargs='+', type=float, default=[1, 1, 1, 1, 1],
+                        help="A list of weights corresponding to the numbers (default: [1, 1, 1, 1, 1])")
+
+    # Parse the arguments
+    args = parser.parse_args()
+
+    using_defaults = (args.numbers == [1, 2, 3, 4, 5] and args.weights == [1, 1, 1, 1, 1])
+
+    # Validate lengths of numbers and weights
+    if len(args.numbers) != len(args.weights):
+        raise ValueError("The number of weights must match the number of numbers.")
+      
     
-    numbers = convert_numbers(numbers_strings)
-    weights = convert_numbers(weight_strings)
+    result = average_of_squares(args.numbers, args.weights)
     
-    result = average_of_squares(numbers, weights)
-    
-    print(result)
+    # Output results
+    if using_defaults:
+        print("Using default numbers and weights.")
+    else:
+        print("Custom numbers and weights were provided.")
+
+    print("Numbers:", args.numbers)
+    print("Weights:", args.weights)
+    print("Weighted Sum:", result)
