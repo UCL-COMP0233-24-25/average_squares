@@ -70,11 +70,9 @@ if __name__ == "__main__":
 
     parser = ArgumentParser(description="Computation of weighted average of squares")
     parser.add_argument('numbers_strings', nargs="+")
-    parser.add_argument('--weight_strings', '-w',  nargs="*")
     arguments= parser.parse_args()
 
     numbers = convert_numbers(arguments.numbers_strings)
-    weights = convert_numbers(arguments.weight_strings)
-    result = average_of_squares(numbers, weights)
+    result = average_of_squares(numbers)
 
     print(result)
