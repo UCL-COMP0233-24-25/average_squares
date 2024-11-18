@@ -1,3 +1,5 @@
+import argparse
+
 """Computation of weighted average of squares."""
 
 
@@ -10,9 +12,9 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
     Example:
     --------
     >>> average_of_squares([1, 2, 4])
-    21
+    7.0
     >>> average_of_squares([2, 4], [1, 0.5])
-    12.0
+    6.0
     >>> average_of_squares([1, 2, 4], [1, 0.5])
     Traceback (most recent call last):
     AssertionError: weights and numbers must have same length
@@ -38,7 +40,7 @@ def convert_numbers(list_of_strings):
     Example:
     --------
     >>> convert_numbers(["4", " 8 ", "15 16", " 23    42 "])
-    [4.0, 8.0, 15.0, 16.0, 23.0, 42.0]
+    [4, 8, 15, 16]
 
     """
     all_numbers = []
@@ -51,10 +53,14 @@ def convert_numbers(list_of_strings):
 
 
 if __name__ == "__main__":
-    numbers_strings = ["1", "2", "4"]
+    parser = argparse.ArgumentParser(description="sequence numbers")
+    parser.add_argument("numbers_strings", type=str, nargs="+")
+    args = parser.parse_args()
+    numbers_strings = None
+    # ["1","2","4"]
     weight_strings = ["1", "1", "1"]
 
-    numbers = convert_numbers(numbers_strings)
+    numbers = convert_numbers(args.numbers_strings)
     weights = convert_numbers(weight_strings)
 
     result = average_of_squares(numbers, weights)
