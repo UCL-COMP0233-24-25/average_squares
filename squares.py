@@ -55,13 +55,13 @@ def convert_numbers(list_of_strings):
 def process():
     parser = ArgumentParser(description="Compute the weighted average of squares")
     parser.add_argument("numbers", nargs="+", type=float)
-    parser.add_argument("--weights", "-p", default=None)
+    parser.add_argument("--weights", "-p", nargs="+", type=float)
     args = parser.parse_args()
     
-    weights = None
+    weights = args.weights
     numbers = args.numbers
 
-    result = average_of_squares(numbers)
+    result = average_of_squares(numbers, weights)
         
     print(result)
 
