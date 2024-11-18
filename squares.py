@@ -59,10 +59,17 @@ if __name__ == "__main__":
         nargs="+", 
         help="A list of numbers (separated by spaces or as separate arguments)"
     )
+    parser.add_argument(
+        "--weights", 
+        metavar="W", 
+        type=str, 
+        nargs="+", 
+        help="A list of weights (optional, separated by spaces or as separate arguments)"
+    )
     
     args = parser.parse_args()
     numbers = convert_numbers(args.numbers)
-    weights = None  # Keep weights hardcoded as None for now
+    weights = convert_numbers(args.weights) if args.weights else None
     
     result = average_of_squares(numbers, weights)
     
