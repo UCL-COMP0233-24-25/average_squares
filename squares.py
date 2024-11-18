@@ -1,4 +1,6 @@
 """Computation of weighted average of squares."""
+from argparse import ArgumentParser
+import numpy as np
 
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
@@ -12,7 +14,7 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
     >>> average_of_squares([1, 2, 4])
     7.0
     >>> average_of_squares([2, 4], [1, 0.5])
-    6.0
+    8.0
     >>> average_of_squares([1, 2, 4], [1, 0.5])
     Traceback (most recent call last):
     AssertionError: weights and numbers must have same length
@@ -29,7 +31,7 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
         for number, weight
         in zip(list_of_numbers, effective_weights)
     ]
-    return sum(squares)
+    return sum(squares) / sum(effective_weights)
 
 
 def convert_numbers(list_of_strings):
@@ -38,7 +40,7 @@ def convert_numbers(list_of_strings):
     Example:
     --------
     >>> convert_numbers(["4", " 8 ", "15 16", " 23    42 "])
-    [4, 8, 15, 16]
+    [4.0, 8.0, 15.0, 16.0, 23.0, 42.0]
 
     """
     all_numbers = []
@@ -49,13 +51,26 @@ def convert_numbers(list_of_strings):
     # ...then convert each substring into a number
     return [float(number_string) for number_string in all_numbers]
 
+def read_file(file_path):
+    """Read a text file and return a list of strings."""
+    with open(file_path, 'r') as file:
+        content = file.read().strip()  # Read the file and remove leading/trailing whitespace
+    return content.split(',') 
 
 if __name__ == "__main__":
-    numbers_strings = ["1","2","4"]
-    weight_strings = ["1","1","1"]        
+    # numbers_strings = ["1","2","4"]
+    # weight_strings = ["1","1","1"] 
+    weight_strings = None
+    parser = ArgumentParser(description='weighted average of a list of values')   
+    parser.add_argument('numbers',help='file containing numbers')
+    parser.add_argument('--weights','-w', help='file containing weights')  
+    arguments = parser.parse_args()  
     
-    numbers = convert_numbers(numbers_strings)
-    weights = convert_numbers(weight_strings)
+    numbers = convert_numbers(read_file(arguments.numbers))
+    if arguments.weights:
+        weights = convert_numbers(read_file(arguments.weights))
+    else:
+        weights = None
     
     result = average_of_squares(numbers, weights)
     
