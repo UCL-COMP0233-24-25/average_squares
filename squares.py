@@ -36,32 +36,10 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
     return sum(squares) / total_weight
 
 
-def convert_numbers(list_of_strings):
-    """Convert a list of strings into numbers, ignoring whitespace.
-    
-    Parameters
-    ----------
-    list_of_strings : list of str
-        A list of strings where each string contains one or more numbers
-        separated by whitespace.
-
-    Returns
-    -------
-    list of int
-        A list of integers parsed from the input strings.
-
-    Examples
-    --------
-    >>> convert_numbers(["4", " 8 ", "15 16", " 23    42 "])
-    [4, 8, 15, 16, 23, 42]
-    """
-    all_numbers = []
-    for s in list_of_strings:
-        # Take each string in the list, split it into substrings separated by
-        # whitespace, and collect them into a single list...
-        all_numbers.extend(s.split())
-    # ...then convert each substring into a number
-    return [int(number_string) for number_string in all_numbers]
+def read_numbers_from_file(file_path):
+    """Read numbers from a text file, one per line."""
+    with open(file_path, 'r') as file:
+        return [float(line.strip()) for line in file.readlines()]
 
 
 if __name__ == "__main__":
@@ -69,12 +47,13 @@ if __name__ == "__main__":
     #weight_strings = ["1","1","1"]        
 
     parser = ArgumentParser(description="Computation of weighted average of squares")
-    parser.add_argument('numbers_strings', nargs="+")
-    parser.add_argument('--weight_strings', '-w',  nargs="*")
+    parser.add_argument('file_numbers', type=str)
+    parser.add_argument('--file_weights', '-w', type=str)
     arguments= parser.parse_args()
 
-    numbers = convert_numbers(arguments.numbers_strings)
-    weights = convert_numbers(arguments.weight_strings)
+    numbers = read_numbers_from_file(arguments.file_numbers)
+    weights = read_numbers_from_file(arguments.file_weights) if arguments.file_weights else None
+
     result = average_of_squares(numbers, weights)
 
     print(result)
