@@ -1,12 +1,12 @@
 """Computation of weighted average of squares."""
-
+import argparse
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
-    """ Return the weighted average of a list of values.
-    
+    """Return the weighted average of a list of values.
+
     By default, all values are equally weighted, but this can be changed
     by the list_of_weights argument.
-    
+
     Example:
     --------
     >>> average_of_squares([1, 2, 4])
@@ -16,11 +16,10 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
     >>> average_of_squares([1, 2, 4], [1, 0.5])
     Traceback (most recent call last):
     AssertionError: weights and numbers must have same length
-
     """
     if list_of_weights is not None:
         assert len(list_of_weights) == len(list_of_numbers), \
-            "weights and numbers must have same length"
+            "weights and numbers must have the same length"
         effective_weights = list_of_weights
     else:
         effective_weights = [1] * len(list_of_numbers)
@@ -29,8 +28,7 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
         for number, weight
         in zip(list_of_numbers, effective_weights)
     ]
-    return sum(squares)
-
+    return sum(squares) / sum(effective_weights)
 
 def convert_numbers(list_of_strings):
     """Convert a list of strings into numbers, ignoring whitespace.
@@ -38,7 +36,7 @@ def convert_numbers(list_of_strings):
     Example:
     --------
     >>> convert_numbers(["4", " 8 ", "15 16", " 23    42 "])
-    [4, 8, 15, 16]
+    [4.0, 8.0, 15.0, 16.0, 23.0, 42.0]
 
     """
     all_numbers = []
@@ -49,14 +47,42 @@ def convert_numbers(list_of_strings):
     # ...then convert each substring into a number
     return [float(number_string) for number_string in all_numbers]
 
+def read_numbers_from_file(filepath):
+    """Read a single row of numbers from a text file."""
+    with open(filepath, 'r') as file:
+        line = file.readline()
+        return [float(value) for value in line.split()]
+
 
 if __name__ == "__main__":
-    numbers_strings = ["1","2","4"]
-    weight_strings = ["1","1","1"]        
-    
-    numbers = convert_numbers(numbers_strings)
-    weights = convert_numbers(weight_strings)
-    
+    # Initialize the argument parser
+    parser = argparse.ArgumentParser(description="Calculate the weighted average of squares from numbers and optional weights in files.")
+    parser.add_argument(
+        "file_numbers",
+        type=str,
+        help="File containing a single row of numbers."
+    )
+    parser.add_argument(
+        "--weights",
+        type=str,
+        help="Optional file containing a single row of weights."
+    )
+
+    # Parse the command-line arguments
+    args = parser.parse_args()
+
+    # Read numbers and weights from the files
+    numbers = read_numbers_from_file(args.file_numbers)
+    weights = None
+    if args.weights:
+        weights = read_numbers_from_file(args.weights)
+
+    # Validate weights if provided
+    if weights and len(weights) != len(numbers):
+        parser.error("The number of weights must match the number of numbers.")
+
+    # Compute the average of squares
     result = average_of_squares(numbers, weights)
-    
-    print(result)
+
+    # Print the result
+    print(f"The weighted average of squares is: {result}")
