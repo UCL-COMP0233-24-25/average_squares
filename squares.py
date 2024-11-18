@@ -58,17 +58,22 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "numbers",
-        type=float,
-        nargs="+",
+        type=str,
         help="numbers to be squared",
     )
 
-    parser.add_argument(
-        "--weights", type=float, nargs="+", help="weights of each number"
-    )
+    parser.add_argument("--weights", type=str, help="weights of each number")
 
     arguments = parser.parse_args()
 
-    result = average_of_squares(arguments.numbers, arguments.weights)
+    with open("numbers.txt", "r") as f1:
+        content1 = f1.readline()
+        numbers = [float(char) for char in content1.split(",")]
+
+    with open("weights.txt", "r") as f2:
+        content2 = f2.readline()
+        weights = [float(char) for char in content2.split(",")]
+
+    result = average_of_squares(numbers, weights)
 
     print(result)
