@@ -57,12 +57,12 @@ if __name__ == "__main__":
     weight_strings = None
     parser = ArgumentParser(description='weighted average of a list of values')   
     parser.add_argument('numbers',nargs='+')
-    parser.add_argument('--weight','-w')  
+    parser.add_argument('--weights','-w', nargs='+')  
     arguments = parser.parse_args()  
     
     numbers = convert_numbers(arguments.numbers)
-    if arguments.weight:
-        weights = convert_numbers(arguments.weight)
+    if arguments.weights:
+        weights = convert_numbers(arguments.weights)
     else:
         weights = None
     
