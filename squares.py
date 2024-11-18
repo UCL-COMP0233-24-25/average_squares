@@ -1,5 +1,6 @@
 """Computation of weighted average of squares."""
 from argparse import ArgumentParser
+import numpy as np
 
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
@@ -50,19 +51,24 @@ def convert_numbers(list_of_strings):
     # ...then convert each substring into a number
     return [float(number_string) for number_string in all_numbers]
 
+def read_file(file_path):
+    """Read a text file and return a list of strings."""
+    with open(file_path, 'r') as file:
+        content = file.read().strip()  # Read the file and remove leading/trailing whitespace
+    return content.split(',') 
 
 if __name__ == "__main__":
     # numbers_strings = ["1","2","4"]
     # weight_strings = ["1","1","1"] 
     weight_strings = None
     parser = ArgumentParser(description='weighted average of a list of values')   
-    parser.add_argument('numbers',nargs='+')
-    parser.add_argument('--weights','-w', nargs='+')  
+    parser.add_argument('numbers',help='file containing numbers')
+    parser.add_argument('--weights','-w', help='file containing weights')  
     arguments = parser.parse_args()  
     
-    numbers = convert_numbers(arguments.numbers)
+    numbers = convert_numbers(read_file(arguments.numbers))
     if arguments.weights:
-        weights = convert_numbers(arguments.weights)
+        weights = convert_numbers(read_file(arguments.weights))
     else:
         weights = None
     
