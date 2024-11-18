@@ -61,11 +61,18 @@ def process():
         help="List of numbers to compute the weighted average of squares",
         type=str
     )
+    parser.add_argument(
+        '--weights',
+        nargs='+',
+        help="List of weights to compute the weighted average of squares",
+        type=str
+    )
     args = parser.parse_args()
 
     numbers = convert_numbers(args.numbers)
+    weights = convert_numbers(args.weights) if args.weights else None
 
-    result = average_of_squares(numbers)
+    result = average_of_squares(numbers, weights)
     print(f"Weighted average of squares: {result}")
 
 
