@@ -61,11 +61,20 @@ if __name__ == "__main__":
         nargs="+",
         help="A list of numbers to compute the average of squares.",
     )
+    parser.add_argument(
+        "-w",
+        "--weights",
+        metavar="weight",
+        nargs="*",
+        help="???",
+    )
 
     args = parser.parse_args()
 
     numbers = convert_numbers(args.numbers)
     weights = None
+    if args.weights:
+        weights = convert_numbers(args.weights)
     result = average_of_squares(numbers, weights)
 
     print(result)
