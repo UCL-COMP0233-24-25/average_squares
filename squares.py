@@ -55,10 +55,13 @@ if __name__ == "__main__":
     # weight_strings = ["1","1","1"]   
     parser = ArgumentParser(description="Do weighted average of squares of input numbers")
     parser.add_argument('numbers', nargs='*', type=float, help="List of numbers (floats) to average")
+    parser.add_argument('--weights', nargs='*', type=float, help="List of weights")
+    
     arguments= parser.parse_args()
 
-    
-    weights =None
-    result = average_of_squares(arguments.numbers, weights)
+    numbers = arguments.numbers 
+    weights = arguments.weights 
+
+    result = average_of_squares(numbers, weights)
     
     print(result)
