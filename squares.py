@@ -54,9 +54,11 @@ if __name__ == "__main__":
 
     parser = ArgumentParser(description="Returns weighted mean of squares")
     parser.add_argument("Numbers", type=int, nargs='+', help="input numbers")
+    parser.add_argument("--Weights", "-w", type=int,nargs='+', help='input weights')
+    
     INP = parser.parse_args()
     INP_list = INP.Numbers
-    weights = None
+    weights = INP.Weights
     
     result = average_of_squares(INP_list, weights)
     
