@@ -1,5 +1,6 @@
 """Computation of weighted average of squares."""
 from argparse import ArgumentParser
+from argparse import FileType
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
     """ Return the weighted average of a list of values.
@@ -53,13 +54,19 @@ def convert_numbers(list_of_strings):
 if __name__ == "__main__":
 
     parser = ArgumentParser(description="Returns weighted mean of squares")
-    parser.add_argument("Numbers", type=int, nargs='+', help="input numbers")
-    parser.add_argument("--Weights", "-w", type=int,nargs='+', help='input weights')
+    
+    parser.add_argument("Numbers", type=FileType('r'), help="File name for input numbers")
+    parser.add_argument("--Weights", "-w", type=FileType('r'), help='File name for input weights')
     
     INP = parser.parse_args()
-    INP_list = INP.Numbers
-    weights = INP.Weights
     
-    result = average_of_squares(INP_list, weights)
+    Numbers_list = convert_numbers(INP.Numbers.readlines())
+
+    if INP.Weights is not None:
+        Weights_list = convert_numbers(INP.Weights.readlines())
+    else:
+        Weights_list = None
+        
+    result = average_of_squares(Numbers_list, Weights_list)
     
     print(result)
