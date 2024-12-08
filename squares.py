@@ -24,12 +24,15 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
         effective_weights = list_of_weights
     else:
         effective_weights = [1] * len(list_of_numbers)
+    
     squares = [
         weight * number * number
         for number, weight
         in zip(list_of_numbers, effective_weights)
     ]
-    return sum(squares)
+    
+    total_weight = sum(effective_weights)
+    return sum(squares) / total_weight  # 改为返回加权平均值
 
 
 def convert_numbers(list_of_strings):
@@ -51,12 +54,29 @@ def convert_numbers(list_of_strings):
 
 
 if __name__ == "__main__":
-    numbers_strings = ["1","2","4"]
-    weight_strings = ["1","1","1"]        
+    import argparse
+
+    # 创建解析器
+    parser = argparse.ArgumentParser(description="Compute the average of squares for a list of numbers.")
     
-    numbers = convert_numbers(numbers_strings)
-    weights = convert_numbers(weight_strings)
+    # 添加命令行参数
+    parser.add_argument(
+        "numbers",
+        metavar="N",
+        type=float,
+        nargs="+",
+        help="A list of numbers to compute the average of squares."
+    )
     
+    # 解析参数
+    args = parser.parse_args()
+    numbers = args.numbers
+
+    # 暂时不使用权重，固定为 None
+    weights = None
+
+    # 调用主函数计算结果
     result = average_of_squares(numbers, weights)
-    
-    print(result)
+
+    # 打印结果
+    print(f"The average of squares is: {result}")
